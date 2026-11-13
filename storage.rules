@@ -1,0 +1,61 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null && (
+        request.auth.token.email_verified == true ||
+        (request.auth.token.phone_number != null && request.auth.token.phone_number != '')
+      );
+    }
+
+    // Profile avatars: anyone signed in can view, only owner can upload <= 5MB image
+    match /avatars/{uid}/{fileName} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn()
+        && request.auth.uid == uid
+        && request.resource.size <= 5 * 1024 * 1024
+        && request.resource.contentType.matches('image/(jpeg|png|webp|gif)');
+    }
+
+    // Chat media & voice notes: signed-in users can read/write up to 25MB
+    match /chatMedia/{chatId}/{uid}/{fileName} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn()
+        && request.auth.uid == uid
+        && request.resource.size <= 25 * 1024 * 1024
+        && (
+          request.resource.contentType.matches('image/(jpeg|png|webp|gif)') ||
+          request.resource.contentType.matches('video/(mp4|webm)') ||
+          request.resource.contentType.matches('audio/.*') ||
+          request.resource.contentType == 'application/pdf' ||
+          request.resource.contentType == 'text/plain' ||
+          request.resource.contentType.matches('application/vnd\\.openxmlformats-officedocument\\..*')
+        );
+    }
+
+    // Status media: signed-in users can read, only owner can upload <= 20MB image/video
+    match /statuses/{uid}/{fileName} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn()
+        && request.auth.uid == uid
+        && request.resource.size <= 20 * 1024 * 1024
+        && (
+          request.resource.contentType.matches('image/(jpeg|png|webp)') ||
+          request.resource.contentType.matches('video/(mp4|webm)')
+        );
+    }
+
+    // Custom stickers: signed-in users can read, owner can upload <= 2MB image/webp/png
+    match /stickers/{uid}/{fileName} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn()
+        && request.auth.uid == uid
+        && request.resource.size <= 2 * 1024 * 1024
+        && request.resource.contentType.matches('image/(png|webp|gif)');
+    }
+  }
+}

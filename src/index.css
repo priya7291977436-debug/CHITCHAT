@@ -1,0 +1,113 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-body: 'DM Sans', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+
+  body {
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-mono-nums {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Custom subtle scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(102, 119, 129, 0.25);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(102, 119, 129, 0.45);
+}
+
+/* Chit Chat original subtle geometric wallpaper pattern */
+.chitchat-wallpaper-default {
+  background-color: #EFEAE2;
+  background-image: radial-gradient(rgba(18, 140, 126, 0.07) 1.2px, transparent 1.2px),
+    radial-gradient(rgba(37, 211, 102, 0.06) 1.2px, #EFEAE2 1.2px);
+  background-size: 28px 28px;
+  background-position: 0 0, 14px 14px;
+}
+
+.dark .chitchat-wallpaper-default {
+  background-color: #0B141A;
+  background-image: radial-gradient(rgba(37, 211, 102, 0.06) 1.2px, transparent 1.2px),
+    radial-gradient(rgba(18, 140, 126, 0.05) 1.2px, #0B141A 1.2px);
+  background-size: 28px 28px;
+  background-position: 0 0, 14px 14px;
+}
+
+.chitchat-wallpaper-green {
+  background: linear-gradient(145deg, #E8FAEE 0%, #D9FDD3 100%);
+}
+
+.dark .chitchat-wallpaper-green {
+  background: linear-gradient(145deg, #0A1D15 0%, #0E291D 100%);
+}
+
+.chitchat-wallpaper-minimal {
+  background: #F8FAF9;
+}
+
+.dark .chitchat-wallpaper-minimal {
+  background: #111B21;
+}
+
+.chitchat-wallpaper-abstract {
+  background-color: #EFF7F2;
+  background-image: linear-gradient(30deg, rgba(37, 211, 102, 0.06) 12%, transparent 12.5%, transparent 87%, rgba(37, 211, 102, 0.06) 87.5%, rgba(37, 211, 102, 0.06)),
+    linear-gradient(150deg, rgba(18, 140, 126, 0.06) 12%, transparent 12.5%, transparent 87%, rgba(18, 140, 126, 0.06) 87.5%, rgba(18, 140, 126, 0.06));
+  background-size: 44px 76px;
+}
+
+.dark .chitchat-wallpaper-abstract {
+  background-color: #0D161B;
+  background-image: linear-gradient(30deg, rgba(37, 211, 102, 0.05) 12%, transparent 12.5%, transparent 87%, rgba(37, 211, 102, 0.05) 87.5%, rgba(37, 211, 102, 0.05)),
+    linear-gradient(150deg, rgba(18, 140, 126, 0.05) 12%, transparent 12.5%, transparent 87%, rgba(18, 140, 126, 0.05) 87.5%, rgba(18, 140, 126, 0.05));
+  background-size: 44px 76px;
+}
+
+.chitchat-wallpaper-nature {
+  background: radial-gradient(circle at 15% 20%, #D9FDD3 0%, #EAF7EE 45%, #DFEFE5 100%);
+}
+
+.dark .chitchat-wallpaper-nature {
+  background: radial-gradient(circle at 15% 20%, #102B1F 0%, #0B1914 55%, #091216 100%);
+}
+
+.chitchat-wallpaper-gradient {
+  background: linear-gradient(135deg, #E2F8EA 0%, #F4FBF6 50%, #D9F2EC 100%);
+}
+
+.dark .chitchat-wallpaper-gradient {
+  background: linear-gradient(135deg, #0D201A 0%, #111B21 50%, #0B1C22 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
