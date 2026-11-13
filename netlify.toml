@@ -1,0 +1,12 @@
+[build]
+  # The app lives at the repository root. This overrides the dashboard
+  # "Base directory" setting, which pointed at a non-existent folder.
+  base = "."
+  command = "bun install && bun run build"
+  publish = "dist"
+
+# Single-page app fallback so client-side routes resolve to index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
